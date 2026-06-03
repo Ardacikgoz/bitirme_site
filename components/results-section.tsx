@@ -3,33 +3,78 @@ import { CheckCircle2 } from "lucide-react"
 
 const results = [
   {
-    metric: "Mean Reward",
-    value: "434.5",
-    description: "Average reward reported in the PPO evaluation summary",
+    metric: "Best Route Completion",
+    value: "86.3%",
+    description: "MetaDrive Expert achieved the strongest completion rate in the comparison.",
   },
   {
-    metric: "Best Reward",
-    value: "904.2",
-    description: "Peak reward observed during the reported evaluation run",
+    metric: "Best Learned Completion",
+    value: "36.0%",
+    description: "CL IL+RL produced the highest route completion among the learned policies.",
   },
   {
-    metric: "TL Compliance",
-    value: "95.4%",
-    description: "Traffic-light compliance achieved in the evaluation table",
+    metric: "Best Safe Driving Score",
+    value: "89.8%",
+    description: "MetaDrive Expert set the highest safety score across all model variants.",
   },
   {
-    metric: "Road Completion",
-    value: "39.4%",
-    description: "Best reported completion among the curriculum-learning variants",
+    metric: "Lowest Crash Rate",
+    value: "0.0%",
+    description: "RGB RL and RGB IL+RL both avoided vehicle crashes in the reported runs.",
+  },
+]
+
+const modelResults = [
+  {
+    name: "RGB IL",
+    routeCompletion: "14.7%",
+    safeDriving: "83.5%",
+    outOfRoad: "40.0%",
+    crashVehicle: "4.0%",
+  },
+  {
+    name: "RGB RL",
+    routeCompletion: "6.0%",
+    safeDriving: "65.0%",
+    outOfRoad: "100.0%",
+    crashVehicle: "0.0%",
+  },
+  {
+    name: "RGB IL+RL",
+    routeCompletion: "4.0%",
+    safeDriving: "85.7%",
+    outOfRoad: "40.0%",
+    crashVehicle: "0.0%",
+  },
+  {
+    name: "CL IL",
+    routeCompletion: "32.6%",
+    safeDriving: "75.2%",
+    outOfRoad: "40.0%",
+    crashVehicle: "28.0%",
+  },
+  {
+    name: "CL IL+RL",
+    routeCompletion: "36.0%",
+    safeDriving: "65.3%",
+    outOfRoad: "36.0%",
+    crashVehicle: "56.0%",
+  },
+  {
+    name: "MetaDrive Expert",
+    routeCompletion: "86.3%",
+    safeDriving: "89.8%",
+    outOfRoad: "8.0%",
+    crashVehicle: "16.0%",
   },
 ]
 
 const achievements = [
-  "Curriculum learning improved road completion from 17.5% to 39.4% in the IL setting.",
-  "Fine-tuning DepthAnythingV2 produced sharper spatial cues for obstacle-aware policy rollouts.",
-  "Grad-CAM++ heatmaps exposed where the model focuses for steering and acceleration decisions.",
-  "The RL phase improved reward shaping and traffic-light-aware behavior, but stability remains an open challenge.",
-  "The current system remains strongest in structured simulation and is still being expanded toward tougher urban scenarios.",
+  "Curriculum learning substantially improved pure imitation performance, lifting route completion from 14.7% in RGB IL to 32.6% in CL IL.",
+  "The strongest learned completion came from CL IL+RL at 36.0%, outperforming all RGB-only learned variants on route completion.",
+  "RL did not consistently improve safety metrics in this table, showing that route progress and robustness are still in tension.",
+  "RGB IL+RL and RGB RL both reached a 0.0% crash vehicle rate, but their route completion remained low.",
+  "MetaDrive Expert remains the upper-bound reference with 86.3% route completion and 89.8% safe driving score.",
 ]
 
 export function ResultsSection() {
@@ -41,7 +86,7 @@ export function ResultsSection() {
             Results & Achievements
           </h2>
           <p className="text-lg text-muted-foreground">
-            Poster-reported metrics, training outcomes, and current limitations
+            Benchmark comparison across RGB, curriculum-learning, RL, and expert driving variants
           </p>
         </div>
 
@@ -64,10 +109,40 @@ export function ResultsSection() {
           ))}
         </div>
 
+        <div className="max-w-6xl mx-auto mb-16 overflow-hidden rounded-2xl border border-border bg-card">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[720px] text-left">
+              <thead className="bg-secondary/60">
+                <tr>
+                  <th className="px-4 py-3 text-sm font-semibold text-foreground">Model Variant</th>
+                  <th className="px-4 py-3 text-sm font-semibold text-foreground">Route Completion</th>
+                  <th className="px-4 py-3 text-sm font-semibold text-foreground">Safe Driving Score</th>
+                  <th className="px-4 py-3 text-sm font-semibold text-foreground">Out of Road Rate</th>
+                  <th className="px-4 py-3 text-sm font-semibold text-foreground">Crash Vehicle Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {modelResults.map((row, index) => (
+                  <tr
+                    key={row.name}
+                    className={index % 2 === 0 ? "border-t border-border bg-background" : "border-t border-border bg-secondary/20"}
+                  >
+                    <td className="px-4 py-3 font-medium text-foreground">{row.name}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{row.routeCompletion}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{row.safeDriving}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{row.outOfRoad}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{row.crashVehicle}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         {/* Achievements List */}
         <div className="max-w-2xl mx-auto">
           <h3 className="text-xl font-semibold text-foreground mb-6 text-center">
-            Key Achievements
+            Key Takeaways
           </h3>
           <ul className="space-y-4">
             {achievements.map((achievement) => (
