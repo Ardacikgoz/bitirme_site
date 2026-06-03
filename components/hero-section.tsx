@@ -31,14 +31,14 @@ export function HeroSection() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" className="gap-2" asChild>
-            <a href="#how-it-works">
-              Explore Pipeline
+            <a href="#demo">
+              Watch Demo
               <ArrowRight className="h-4 w-4" />
             </a>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <a href="#results">
-              View Results
+            <a href="#how-it-works">
+              Explore Pipeline
             </a>
           </Button>
         </div>
