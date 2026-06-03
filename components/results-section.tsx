@@ -3,19 +3,19 @@ import { CheckCircle2 } from "lucide-react"
 
 const results = [
   {
-    metric: "Best Route Completion",
-    value: "86.3%",
-    description: "MetaDrive Expert achieved the strongest completion rate in the comparison.",
-  },
-  {
     metric: "Best Learned Completion",
     value: "36.0%",
-    description: "CL IL+RL produced the highest route completion among the learned policies.",
+    description: "CL IL+RL achieved the highest route completion among the learned model variants.",
   },
   {
-    metric: "Best Safe Driving Score",
-    value: "89.8%",
-    description: "MetaDrive Expert set the highest safety score across all model variants.",
+    metric: "Best IL Completion",
+    value: "32.6%",
+    description: "CL IL delivered the strongest pure imitation-learning route completion score.",
+  },
+  {
+    metric: "Best Learned Safety",
+    value: "85.7%",
+    description: "RGB IL+RL recorded the highest safe driving score among the learned variants.",
   },
   {
     metric: "Lowest Crash Rate",
